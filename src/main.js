@@ -1,11 +1,13 @@
 const Koa=require('koa')
+const {APP_PORT}=require('./config/config')
 
+const user=require('./router/user')
 const app=new Koa();
 
-app.use((ctx,next)=>{
-    ctx.body='hello api'
-})
+//user路由
+app.use(user.routes())
+app.use(user.allowedMethods())
 
-app.listen(3000,()=>{
-    console.log('服务已经启动 http://localhost:3000')
+app.listen(APP_PORT,()=>{
+    console.log(`服务已经启动 http://localhost:${APP_PORT}`)
 })
